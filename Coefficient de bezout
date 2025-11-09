@@ -1,0 +1,58 @@
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    printf("=== Calcul des Coefficients de Bezout ===\n");
+    printf("Entrer le premier entier (a) : ");
+    scanf("%d", &a);
+    printf("Entrer le deuxieme entier (b) : ");
+    scanf("%d", &b);
+
+    int a0 = a, b0 = b; 
+    int x1 = 1, x2 = 0;
+    int y1 = 0, y2 = 1; 
+    int q, r;
+    int etape = 1;
+
+    printf("\n--- Debut du calcul ---\n");
+
+    while (b != 0) {
+        q = a / b;   
+        r = a % b;   
+
+        printf("\nEtape %d :\n", etape);
+        printf("  a = %d,  b = %d\n", a, b);
+        printf("  q = a ÷ b = %d ÷ %d = %d\n", a, b, q);
+        printf("  r = a %% b = %d %% %d = %d\n", a, b, r);
+
+        int tx = x1 - q * x2;
+        int ty = y1 - q * y2;
+
+        printf("  Calcul de x : x = %d - (%d * %d) = %d\n", x1, q, x2, tx);
+        printf("  Calcul de y : y = %d - (%d * %d) = %d\n", y1, q, y2, ty);
+
+        a = b;
+        b = r;
+
+        x1 = x2;
+        x2 = tx;
+        y1 = y2;
+        y2 = ty;
+
+        etape++;
+    }
+
+    printf("\n--- Resultats finaux ---\n");
+    printf("Les coefficients de Bezout sont :\n");
+    printf("  x = %d\n", x1);
+    printf("  y = %d\n", y1);
+
+    printf("\nVerification : %d*(%d) + %d*(%d) = %d\n",
+           a0, x1, b0, y1, a0 * x1 + b0 * y1);
+
+    printf("\nAinsi, %d et %d ont pour PGCD : %d\n", a0, b0, a);
+
+    printf("\n--- Fin du programme ---\n");
+
+    return 0;
+}
